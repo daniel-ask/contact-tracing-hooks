@@ -1,23 +1,31 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState } from "react";
+import History from "./component/History";
+import Form from './component/Form';
 
 function App() {
+  const [data, setData] = useState([
+    {
+      date: new Date().toLocaleString(),
+      streetNumber: 120,
+      streetAddress: "Spencer Street",
+      suburb: "Melbourne",
+    },
+  ]);
+
+  function addLocation(location){
+    setData([
+      location,
+      ...data,
+    ])
+  }
+
+  console.log(data);
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <h1>Contact Tracing</h1>
+      {/* <button onClick={() => setData("hello")}>click me</button> */}
+      <Form addLocation={addLocation} />
+      <History data={data} />
     </div>
   );
 }
